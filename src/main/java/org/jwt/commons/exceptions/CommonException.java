@@ -9,12 +9,14 @@ public class CommonException extends RuntimeException {
     private HttpStatus status;
     private Map<String, List<String>> messages;
 
+    //여러필드에 대한 어려개 메세지를 받아 생성
     public CommonException(Map<String, List<String>> messages, HttpStatus status) {
         super();
         this.status = status;
         this.messages = messages;
     }
 
+    //단일필드에 대한 메세지를 받아 생성
     public CommonException(String message, HttpStatus status) {
         super(message);
         this.status = status;

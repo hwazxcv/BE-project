@@ -2,6 +2,8 @@ package org.jwt.api.controllers;
 
 import org.jwt.commons.exceptions.CommonException;
 import org.jwt.commons.rests.JSONData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,10 +15,18 @@ import java.nio.file.AccessDeniedException;
 @RestControllerAdvice("org.jwt.api.controllers")
 public class CommonController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
+
+
     @ExceptionHandler(Exception.class)
+    //모든 Exception를 처리
     public ResponseEntity<JSONData> errorHandler(Exception e) {
+        //기본값으로 500 설정
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         Object message = e.getMessage();
+
+
+
 
         if (e instanceof CommonException) {
             CommonException commonException = (CommonException) e;
@@ -36,7 +46,7 @@ public class CommonController {
         data.setStatus(status);
         data.setMessage(message);
 
-        e.printStackTrace();
+        logger.error("error : {} ",e.getMessage(), e);
 
         return ResponseEntity.status(status).body(data);
     }
