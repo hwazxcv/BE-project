@@ -3,7 +3,6 @@ package org.jwt.configs.jwt;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SecurityException;
 import org.jwt.commons.Utils;
 import org.jwt.commons.exceptions.BadRequestException;
 import org.jwt.models.member.MemberInfo;
@@ -53,6 +52,7 @@ public class TokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
+
         Claims claims = Jwts.parser()
                 .setSigningKey(key)
                 .build()

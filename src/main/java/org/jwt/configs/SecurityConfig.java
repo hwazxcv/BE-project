@@ -1,8 +1,8 @@
 package org.jwt.configs;
 
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.jwt.configs.jwt.CustomJwtFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -16,15 +16,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 @EnableMethodSecurity // @PreAuthorize("hasAuthority('ADMIN'))
 public class SecurityConfig {
 
-    @Autowired
-    private CustomJwtFilter customJwtFilter;
-    @Autowired
-    private CorsFilter corsFilter;
+//    @Autowired
+//    private CustomJwtFilter customJwtFilter
 
+    private final CustomJwtFilter customJwtFilter;
+//    @Autowired
+//    private CorsFilter corsFilter;
+
+    private  final CorsFilter corsFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
